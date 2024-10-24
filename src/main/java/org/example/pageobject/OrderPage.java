@@ -10,7 +10,7 @@ import java.time.Duration;
 
 public class OrderPage extends MainPage {
 
-    public static String ORDER_PAGE_URL = MAIN_PAGE_URL + "order";
+    public static final String ORDER_PAGE_URL = MAIN_PAGE_URL + "order";
     public static final String YANDEX_URL = "https://dzen.ru/?yredirect=true";
 
 
@@ -37,9 +37,9 @@ public class OrderPage extends MainPage {
     private By formModalSuccessMessage = By.xpath(".//div[text() = 'Заказ оформлен']");
 
 
-    private final String METRO_PATTERN = ".//*[contains(text(), '%s')]";
-    private final String DURATION_PATTERN = ".//div[contains(@class, 'Dropdown-option') and text()='%s']";
-    private final String COLOR_PATTERN = ".//input[@type = 'checkbox' and @id='%s']";
+    private final String metroPattern = ".//*[contains(text(), '%s')]";
+    private final String durationPattern = ".//div[contains(@class, 'Dropdown-option') and text()='%s']";
+    private final String colorPattern = ".//input[@type = 'checkbox' and @id='%s']";
 
 
     public OrderPage(WebDriver driver) {
@@ -69,8 +69,8 @@ public class OrderPage extends MainPage {
         orderFormNextButtonClick();
         selectDeliveryDate(deliveryDate);
         driver.findElement(formDurationDiv).click();
-        driver.findElement(By.xpath(String.format(DURATION_PATTERN, duration))).click();
-        driver.findElement(By.xpath(String.format(COLOR_PATTERN, color))).click();
+        driver.findElement(By.xpath(String.format(durationPattern, duration))).click();
+        driver.findElement(By.xpath(String.format(colorPattern, color))).click();
         driver.findElement(formCommentInput).sendKeys(comment);
         driver.findElement(formOrderButton).click();
 
@@ -95,7 +95,7 @@ public class OrderPage extends MainPage {
     private void selectMetroStation(String station, By locator) {
         WebElement input = driver.findElement(locator);
         input.sendKeys(station);
-        driver.findElement(By.xpath(String.format(METRO_PATTERN, station))).click();
+        driver.findElement(By.xpath(String.format(metroPattern, station))).click();
     }
 
     public boolean isOrderConfirmationWindowShown() {

@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class MainPage {
+public class MainPage extends BasePage{
     public static String MAIN_PAGE_URL = "https://qa-scooter.praktikum-services.ru/";
 
     public static final int WAIT_TIMEOUT_SEC = 3;
@@ -20,10 +20,10 @@ public class MainPage {
     private By cookieButton = By.xpath(".//button[contains(@class, 'App_CookieButton')]");
     private By faqAccordionQuestionDiv = By.xpath(".//div[contains(@class, 'accordion__heading')]");
     private By faqOppenedAnswerP = By.xpath(".//div[contains(@class, 'accordion__panel') and not(@hidden)]/p");
-    private final String FAQ_QUESTION_PATTERN = ".//div[contains(@id, 'accordion__heading') and contains(text(), '%s')]";
+    private final String faqQuestionPattern = ".//div[contains(@id, 'accordion__heading') and contains(text(), '%s')]";
     private By headerOrderButton = By.xpath(".//div[contains(@class, 'Header')]/button[text() = 'Заказать']");
     private By bottomOrderButton = By.xpath(".//div[contains(@class, 'Home_FinishButton')]/button[text() = 'Заказать']");
-    protected WebDriver driver;
+
 
     public MainPage(WebDriver driver) {
         this.driver = driver;
@@ -71,7 +71,7 @@ public class MainPage {
     }
 
     public void faqQuestionClick(String question) {
-        WebElement questionElement = driver.findElement(By.xpath(String.format(FAQ_QUESTION_PATTERN, question)));
+        WebElement questionElement = driver.findElement(By.xpath(String.format(faqQuestionPattern, question)));
         waitBeforeClick(MainPage.WAIT_TIMEOUT_SEC, questionElement);
         questionElement.click();
     }
@@ -87,15 +87,7 @@ public class MainPage {
     }
 
 
-    private void waitBeforeClick(int timeout, By element) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.elementToBeClickable(element));
-    }
 
-    private void waitBeforeClick(int timeout, WebElement element) {
-        new WebDriverWait(driver, Duration.ofSeconds(timeout))
-                .until(ExpectedConditions.elementToBeClickable(element));
-    }
 
 
 }
