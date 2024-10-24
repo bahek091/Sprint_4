@@ -7,14 +7,14 @@ import org.junit.Test;
 
 
 public class CheckOrderStatusTest extends BaseUITest {
-    private final String INCORRECT_ORDER = "1";
+    private final String incorrectOrder = "1";
 
 
     @Test
     public void OrderStatusNotExistTest() {
         MainPage mainPage = openMainPage(driver);
         mainPage.statusOrderButtonClick();
-        mainPage.setOrderNumber(INCORRECT_ORDER);
+        mainPage.setOrderNumber(incorrectOrder);
         mainPage.goButtonClick();
 
         TrackPage trackPage = new TrackPage(driver);
